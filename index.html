@@ -256,8 +256,8 @@
                 (p.resultNumber.toString().includes(search) || 
                  p.category.toLowerCase().includes(search) || 
                  p.name.toLowerCase().includes(search)) &&
-                (announcedFilter === '' || (p.announced + '').toString() === announcedFilter) &&
-                (postedFilter === '' || (p.posted + '').toString() === postedFilter) &&
+                (announcedFilter === '' || Boolean(p.announced) === (announcedFilter === 'true')) &&
+                (postedFilter === '' || Boolean(p.posted) === (postedFilter === 'true')) &&
                 (!categoryFilter || p.category === categoryFilter)
             );
             renderProgrammeCards(filtered);
