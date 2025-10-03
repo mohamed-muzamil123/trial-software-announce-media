@@ -146,11 +146,11 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Chest Number</th>
+                                    <th>Place</th>
                                     <th>Code Letter</th>
+                                    <th>Chest Number</th>
                                     <th>Student Name</th>
                                     <th>Team</th>
-                                    <th>Prize</th>
                                     <th>Grade</th>
                                     <th>Points</th>
                                 </tr>
@@ -326,13 +326,13 @@
             const studentEntries = Object.entries(marksDetails).map(([studentId, details]) => {
                 const student = students.find(s => s.id === studentId);
                 if (!student) return null;
-                const prize = details.place <= 3 ? `${details.place}${['st', 'nd', 'rd'][Math.min(2, details.place - 1)]}` : '';
+                const placeOrdinal = details.place ? `${details.place}${['st', 'nd', 'rd'][Math.min(2, details.place - 1)]}` : '-';
                 return {
-                    chestNo: student.chestNo,
+                    place: placeOrdinal,
                     codeLetter: codeLetters[studentId] || details.codeLetter,
+                    chestNo: student.chestNo,
                     name: student.name,
                     team: student.team,
-                    prize,
                     grade: details.grade,
                     points: details.points
                 };
@@ -342,11 +342,11 @@
             const tbody = document.getElementById('resultsTbody');
             tbody.innerHTML = studentEntries.map(entry => `
                 <tr>
-                    <td>${entry.chestNo}</td>
+                    <td>${entry.place}</td>
                     <td>${entry.codeLetter}</td>
+                    <td>${entry.chestNo}</td>
                     <td>${entry.name}</td>
                     <td>${entry.team}</td>
-                    <td>${entry.prize || '-'}</td>
                     <td>${entry.grade}</td>
                     <td>${entry.points}</td>
                 </tr>
