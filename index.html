@@ -326,6 +326,10 @@
             const studentEntries = Object.entries(marksDetails).map(([studentId, details]) => {
                 const student = students.find(s => s.id === studentId);
                 if (!student) return null;
+                const hasPlace = !!details.place;
+                const hasGrade = !!details.grade && details.grade !== 'No Grade';
+                const hasPoints = details.points > 0;
+                if (!hasPlace && !hasGrade && !hasPoints) return null;
                 const placeOrdinal = details.place ? `${details.place}${['st', 'nd', 'rd'][Math.min(2, details.place - 1)]}` : '-';
                 return {
                     place: placeOrdinal,
